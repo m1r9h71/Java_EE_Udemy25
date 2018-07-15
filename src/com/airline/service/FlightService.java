@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class FlightService {
+public class FlightService implements FlightLocal{
 
 	/**
 	 * Default constructor.
