@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.airline.service.FlightLocal_ejb8;
+import com.airline.service.FlightLocal_ejb10;
 import com.airline.service.FlightServiceStatelessBean;
 
 /**
@@ -23,17 +23,12 @@ import com.airline.service.FlightServiceStatelessBean;
 public class FlightDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@EJB(beanName = "flightStateless")
-	private FlightLocal_ejb8 fs;
 	
-	@EJB(beanName = "flightStateless")
-	private FlightLocal_ejb8 fs2;
+	private FlightLocal_ejb10 fs;
 	
-	@EJB(beanName = "flightStateful")
-	private FlightLocal_ejb8 fsStateful;
+	private FlightLocal_ejb10 fsStateful;
 	
-	@EJB(beanName = "flightStateful")
-	private FlightLocal_ejb8 fsStateful2;
+
 	
 	
 	
@@ -58,22 +53,33 @@ public class FlightDetails extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("The flights details servlet has been called.....");
 		
+		try {
+			
+			Context context = new InitialContext();
+			
+			Object fsObject = context.lookup("java:global/ejb10/flightStateless!com.airline.service.FlightLocal_ejb10");
+			this.fs = (FlightLocal_ejb10) fsObject;
+			
+			Object fsStatefulObject = context.lookup("java:global/ejb10/flightStateful!com.airline.service.FlightLocal_ejb10");
+			this.fsStateful = (FlightLocal_ejb10) fsStatefulObject;
+			
+			
+		}
+		catch(NamingException e) {
+			
+			System.out.println("Naming exception has occured in the lookup of our FlightService EJBs");
+			e.printStackTrace();
+			
+		}
+		
 		//Stateless
 		
 		out.println("Flight Details: " + fs.getFrom() + " to " + fs.getTo() + " costing " + fs.getPrice());
 		
-		fs2.setFrom("Paris");
-		fs2.setTo("Rome");
-		
-		out.println("Flight Details: " + fs2.getFrom() + " to " + fs2.getTo());
 
 		//Stateful
 		out.println("Flight Details: " + fsStateful.getFrom() + " to " + fsStateful.getTo() + " costing " + fsStateful.getPrice());
 		
-		fsStateful2.setFrom("Paris");
-		fsStateful2.setTo("Rome");
-		
-		out.println("Flight Details: " + fsStateful.getFrom() + " to " + fsStateful.getTo());
 
 
 		

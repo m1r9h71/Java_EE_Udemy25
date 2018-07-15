@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
  */
 @Stateless(name = "flightStateless")
 
-public class FlightServiceStatelessBean implements FlightLocal_ejb8{
+public class FlightServiceStatelessBean implements FlightLocal_ejb10{
 
 	/**
 	 * Default constructor.
