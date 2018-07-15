@@ -26,8 +26,14 @@ public class FlightDetails extends HttpServlet {
 	@EJB(beanName = "flightStateless")
 	private FlightLocal_ejb8 fs;
 	
+	@EJB(beanName = "flightStateless")
+	private FlightLocal_ejb8 fs2;
+	
 	@EJB(beanName = "flightStateful")
 	private FlightLocal_ejb8 fsStateful;
+	
+	@EJB(beanName = "flightStateful")
+	private FlightLocal_ejb8 fsStateful2;
 	
 	
 	
@@ -52,9 +58,23 @@ public class FlightDetails extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		out.println("The flights details servlet has been called.....");
 		
+		//Stateless
+		
 		out.println("Flight Details: " + fs.getFrom() + " to " + fs.getTo() + " costing " + fs.getPrice());
 		
+		fs2.setFrom("Paris");
+		fs2.setTo("Rome");
+		
+		out.println("Flight Details: " + fs2.getFrom() + " to " + fs2.getTo());
+
+		//Stateful
 		out.println("Flight Details: " + fsStateful.getFrom() + " to " + fsStateful.getTo() + " costing " + fsStateful.getPrice());
+		
+		fsStateful2.setFrom("Paris");
+		fsStateful2.setTo("Rome");
+		
+		out.println("Flight Details: " + fsStateful.getFrom() + " to " + fsStateful.getTo());
+
 
 		
 
