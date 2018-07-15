@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +22,8 @@ import com.airline.service.FlightService;
 public class FlightDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@EJB
-	private FlightService fs;
+	
+	private FlightService fs = null;
 
 	
 
@@ -43,21 +46,24 @@ public class FlightDetails extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		out.println("The flights details servlet has been called.....");
-		//This tutorial is showing the issues with a stateless EJB
 		
-		fs.setFrom("London"); //This could refer to the 5th FlightService Bean object from the pool
-		
-		fs.setPrice(500);//This could refer to the 1st FlightService Bean object from the pool
-		
-		fs.setTo("Rome"); //This could refer to the 4th FlightService Bean object from the pool
-		
-		//Using stateless and the same reference (fs in this case) means the result is completely random
-		
-		
-		out.println(fs.getFrom()); //This will work but we don't know which Bean we are referring to
-		
+		try {
+			Context context = new InitialContext();
+			Object fObj = context.lookup("java:global/ejb5/FlightService!com.airline.service.FlightService");
+			fs = (FlightService) fObj;
 
+	}catch(NamingException e) {
+		System.out.println("Naming Exception has occured when trying to lookup the FlightService EJB");
+		e.printStackTrace();
+		
 	}
+		
+		if(fs != null) {
+			
+			out.println("Flight Details: " + fs.getFrom() + " to " + fs.getTo() + " costing " + fs.getPrice());
+		}
+
+}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
