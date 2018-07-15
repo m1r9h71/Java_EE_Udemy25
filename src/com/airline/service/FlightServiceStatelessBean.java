@@ -6,14 +6,14 @@ import javax.ejb.Stateless;
 /**
  * Session Bean implementation class FlightService
  */
-@Stateless
+@Stateless(name = "flightStateless")
 
-public class FlightService implements FlightLocal, FlightRemote{
+public class FlightServiceStatelessBean implements FlightLocal_ejb8{
 
 	/**
 	 * Default constructor.
 	 */
-	public FlightService() {
+	public FlightServiceStatelessBean() {
 		// TODO Auto-generated constructor stub
 	}
 

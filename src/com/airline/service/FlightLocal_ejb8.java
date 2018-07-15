@@ -1,9 +1,10 @@
 package com.airline.service;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
-@Remote //Means that it can be injected even if computer injecting is a remote computer
-public interface FlightRemote {
+@Local
+
+public interface FlightLocal_ejb8 {
 	
 	public Integer getId();
 

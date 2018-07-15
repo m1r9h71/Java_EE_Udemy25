@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.airline.service.FlightLocal;
-import com.airline.service.FlightRemote;
-import com.airline.service.FlightService;
+import com.airline.service.FlightLocal_ejb8;
+import com.airline.service.FlightServiceStatelessBean;
 
 /**
  * Servlet implementation class FlightDetails
@@ -24,12 +23,13 @@ import com.airline.service.FlightService;
 public class FlightDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@EJB
-	private FlightLocal fs;
+	@EJB(beanName = "flightStateless")
+	private FlightLocal_ejb8 fs;
 	
-	@EJB
-	private FlightRemote fsRemote;
-
+	@EJB(beanName = "flightStateful")
+	private FlightLocal_ejb8 fsStateful;
+	
+	
 	
 
 	/**
@@ -54,7 +54,9 @@ public class FlightDetails extends HttpServlet {
 		
 		out.println("Flight Details: " + fs.getFrom() + " to " + fs.getTo() + " costing " + fs.getPrice());
 		
-		out.println("Flight Details: " + fsRemote.getFrom() + " to " + fsRemote.getTo() + " costing " + fsRemote.getPrice());
+		out.println("Flight Details: " + fsStateful.getFrom() + " to " + fsStateful.getTo() + " costing " + fsStateful.getPrice());
+
+		
 
 
 }
