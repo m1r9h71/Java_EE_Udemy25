@@ -7,8 +7,8 @@ import javax.ejb.Stateless;
  * Session Bean implementation class FlightService
  */
 @Stateless
-@LocalBean
-public class FlightService implements FlightLocal{
+
+public class FlightService implements FlightLocal, FlightRemote{
 
 	/**
 	 * Default constructor.
