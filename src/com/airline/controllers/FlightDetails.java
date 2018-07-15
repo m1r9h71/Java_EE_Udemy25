@@ -22,20 +22,7 @@ public class FlightDetails extends HttpServlet {
 	@EJB
 	private FlightService fs;
 
-	@EJB
-	private FlightService fs2;
-
-	@EJB
-	private FlightService fs3;
-
-	@EJB
-	private FlightService fs4;
-
-	@EJB
-	private FlightService fs5;
-
-	@EJB
-	private FlightService fs6;
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -56,22 +43,19 @@ public class FlightDetails extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		out.println("The flights details servlet has been called.....");
-		fs.setFrom("London");
-		out.println(fs.getFrom());
-		fs2.setFrom("Rome");
-		out.println(fs.getFrom());
-
-		fs3.setFrom("New York");
-		out.println(fs.getFrom());
-
-		fs4.setFrom("Paris");
-		out.println(fs.getFrom());
-
-		fs5.setFrom("San Francisco");
-		out.println(fs.getFrom());
-
-		fs6.setFrom("Waterford");
-		out.println(fs.getFrom());
+		//This tutorial is showing the issues with a stateless EJB
+		
+		fs.setFrom("London"); //This could refer to the 5th FlightService Bean object from the pool
+		
+		fs.setPrice(500);//This could refer to the 1st FlightService Bean object from the pool
+		
+		fs.setTo("Rome"); //This could refer to the 4th FlightService Bean object from the pool
+		
+		//Using stateless and the same reference (fs in this case) means the result is completely random
+		
+		
+		out.println(fs.getFrom()); //This will work but we don't know which Bean we are referring to
+		
 
 	}
 
