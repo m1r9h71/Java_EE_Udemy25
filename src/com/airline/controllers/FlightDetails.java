@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.airline.service.FlightLocal_ejb10;
+import com.airline.service.FlightLocal_ejb11;
 import com.airline.service.FlightServiceStatelessBean;
 
 /**
@@ -24,9 +24,9 @@ public class FlightDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
-	private FlightLocal_ejb10 fs;
+	private FlightLocal_ejb11 fs;
 	
-	private FlightLocal_ejb10 fsStateful;
+	private FlightLocal_ejb11 fsStateful;
 	
 
 	
@@ -58,10 +58,10 @@ public class FlightDetails extends HttpServlet {
 			Context context = new InitialContext();
 			
 			Object fsObject = context.lookup("java:global/ejb10/flightStateless!com.airline.service.FlightLocal_ejb10");
-			this.fs = (FlightLocal_ejb10) fsObject;
+			this.fs = (FlightLocal_ejb11) fsObject;
 			
 			Object fsStatefulObject = context.lookup("java:global/ejb10/flightStateful!com.airline.service.FlightLocal_ejb10");
-			this.fsStateful = (FlightLocal_ejb10) fsStatefulObject;
+			this.fsStateful = (FlightLocal_ejb11) fsStatefulObject;
 			
 			
 		}
