@@ -4,7 +4,7 @@ import javax.ejb.Local;
 
 @Local
 
-public interface FlightLocal_ejb12 {
+public interface FlightLocal_ejb13 {
 	
 	public Integer getId();
 

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.airline.service.CounterBean;
 import com.airline.service.CounterStatefulBean;
@@ -23,8 +24,7 @@ public class ShowCount extends HttpServlet {
 	@EJB
 	CounterBean cb;
 	
-	@EJB
-	CounterStatefulBean cbStateful;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -40,6 +40,10 @@ public class ShowCount extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		HttpSession s = request.getSession();
+		
+		CounterStatefulBean cbStateful = (CounterStatefulBean) s.getAttribute("cbStateful");
 		
 		PrintWriter out = response.getWriter();
 		out.println("The count value is for the Singleton Bean is : " + cb.getCount());

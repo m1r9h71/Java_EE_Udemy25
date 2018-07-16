@@ -9,7 +9,7 @@ import javax.ejb.Stateless;
  */
 @Stateful(name = "flightStateful")
 
-public class FlightServiceStatefulBean implements FlightLocal_ejb12{
+public class FlightServiceStatefulBean implements FlightLocal_ejb13{
 
 	/**
 	 * Default constructor.
